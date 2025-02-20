@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Initialization</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: black;
+            color: #0f0;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+        }
+
+        .terminal {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border: 2px solid #0f0;
+            box-shadow: 0 0 15px #0f0;
+            width: 60%;
+            text-align: left;
+            font-size: 18px;
+            line-height: 1.5;
+            z-index: 3;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .blink {
+            animation: blinkText 0.8s infinite alternate;
+        }
+
+        @keyframes blinkText {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        .button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: 2px solid #0f0;
+            background: transparent;
+            color: #0f0;
+            cursor: pointer;
+            font-size: 18px;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+        .newbut{
+            display: flex;
+        }
+
+        .button:hover {
+            background: #0f0;
+            color: #000;
+        }
+
+        .spline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .alert-box {
+            position: fixed;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0f0;
+            color: black;
+            padding: 15px 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px #0f0;
+            font-weight: bold;
+            opacity: 0;
+            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+            z-index: 2;
+        }
+
+        .alert-box.show {
+            transform: translateX(-50%) translateY(60px);
+            opacity: 1;
+        }
+
+        .alert-box.hide {
+            opacity: 0;
+            transform: translateX(-50%) translateY(20px);
+        }
+    </style>
+</head>
+
+<body>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.68/build/spline-viewer.js"></script>
+    <spline-viewer class="spline" url="https://prod.spline.design/gLUYdVhY4QsPR3xJ/scene.splinecode"></spline-viewer>
+    <div class="container">
+        <div id="loadingScreen" class="terminal">
+            <p>Initializing Project<span class="blink">_</span></p>
+        </div>
+        <div id="fetchingScreen" class="terminal hidden">
+            <p>Fetching Location Data<span class="blink">...</span></p>
+        </div>
+        <div id="content" class="terminal hidden">
+            <p><strong>Location Data Retrieved</strong></p>
+            <p>Dimension: Zeta-47X</p>
+            <p>Planet: Earth-X9</p>
+            <p>Galaxy: Andromeda Prime</p>
+            <p>Status: Classified</p>
+            <div class="newbut">
+
+                <a class="button" style="text-decoration: none;" onclick="undoAction(event)">Undo in Your Dimension</a>
+            </div>
+        </div>
+    </div>
+    
+    <div id="alertBox" class="alert-box">Undo action executed in your dimension!</div>
+    
+    <script>
+        setTimeout(() => {
+            document.getElementById("loadingScreen").classList.add("hidden");
+            document.getElementById("fetchingScreen").classList.remove("hidden");
+            setTimeout(() => {
+                document.getElementById("fetchingScreen").classList.add("hidden");
+                document.getElementById("content").classList.remove("hidden");
+            }, 3000);
+        }, 5000);
+
+        function undoAction(event) {
+            event.preventDefault();
+            let alertBox = document.getElementById("alertBox");
+            alertBox.classList.add("show");
+            setTimeout(() => {
+                alertBox.classList.add("hide");
+                setTimeout(() => {
+                    alertBox.classList.remove("show", "hide");
+                    window.open("https://bunny-89.github.io/undoButton/", "_blank");
+                }, 500);
+            }, 2000);
+        }
+    </script>
+</body>
+
+</html>
